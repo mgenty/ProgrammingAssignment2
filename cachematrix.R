@@ -13,3 +13,56 @@ makeCacheMatrix <- function(x = matrix()) {
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
 }
+
+###
+### mdg
+###
+
+#-----#
+
+##
+## Description: Make Special Cache Mean Vector.
+##
+
+##
+## mv <- makeVector(1:10)
+## cm <- cachemean(mv)
+##
+
+makeVector <- function(x = numeric()) {
+    m <- NULL
+    set <- function(y) {
+        x <<- y
+        m <<- NULL
+    }
+    get <- function() x
+    setmean <- function(mean) m <<- mean
+    getmean <- function() m
+    list(set = set, get = get,
+         setmean = setmean,
+         getmean = getmean)
+}
+
+#-----#
+
+##
+## Description: Calculate Mean Of Cache Mean Vector.
+##
+
+##
+## mv <- makeVector(1:10)
+## cm <- cachemean(mv)
+##
+
+
+cachemean <- function(x, ...) {
+    m <- x$getmean()
+    if(!is.null(m)) {
+        message("getting cached data")
+        return(m)
+    }
+    data <- x$get()
+    m <- mean(data, ...)
+    x$setmean(m)
+    m
+}
