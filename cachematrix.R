@@ -5,7 +5,9 @@
 ## Passed In Matrix That Is Capable Of Caching Its Own Inverse. The Second 
 ## Function Computes The Inverse Of The Special "Matrix" Created By The 
 ## First Function. In Other Words, The Second Function Exercises The First 
-## Function.
+## Function. A Second Call To The Second Function Does Not Recalculate The
+## Inverse. Instead It Just Retrieves The Cached Inverse From The Special
+## "Matrix" (Assuming, Of Course, That The Special "Matrix" Is Unchanged.)
 ##
 ## NOTE: The makeCacheMatrix Function Is A Derivative Of The makeVector
 ##       Function, And The cacheSolve Function Is A Derivative Of The
@@ -28,6 +30,8 @@
 ##
 ## Example Use: squareMatrix <- matrix(1:4, 2)
 ##              cacheMatrix  <- makeCacheMatrix(squareMatrix)
+##              Note That The Data Contents Of The Matrix Can Now Be
+##              Viewed With Either squareMatrix Or cacheMatrix$get()
 ## --------------------------------------------------------------------------
 ##
 
