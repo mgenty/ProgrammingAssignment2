@@ -1,68 +1,69 @@
-## Put comments here that give an overall description of what your
-## functions do
+##
+## ==========================================================================
+## This File Is Comprised Of Two Functions That Cache The Inverse Of A 
+## Given Matrix. The First Function Creates A Special "Matrix" From The 
+## Passed In Matrix That Is Capable Of Caching Its Own Inverse. The Second 
+## Function Computes The Inverse Of The Special "Matrix" Created By The 
+## First Function. In Other Words, The Second Function Exercises The First 
+## Function.
+##
+## NOTE: The makeCacheMatrix Function Is A Derivative Of The makeVector
+##       Function, And The cacheSolve Function Is A Derivative Of The
+##       cachemean Function, Both Of Which Were Supplied As Example
+##       Functions For This Programming Assignment.
+##
+## **************************************************************************
+## Coursera:      Johns Hopkins Data Science Specialization
+## R-Programming: Programming Assignment 2
+## Last Update:   10Nov14 By Marc Genty
+## **************************************************************************
+##
+## ==========================================================================
+##
 
-## Write a short comment describing this function
+##
+## --------------------------------------------------------------------------
+## Description: Function To Create A Special "Matrix" Object
+##              That Can Cache Its Inverse.
+##
+## Example Use: squareMatrix <- matrix(1:4, 2)
+##              cacheMatrix  <- makeCacheMatrix(squareMatrix)
+## --------------------------------------------------------------------------
+##
 
 makeCacheMatrix <- function(x = matrix()) {
-
-}
-
-
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-}
-
-###
-### mdg
-###
-
-#-----#
-
-##
-## Description: Make Special Cache Mean Vector.
-##
-
-##
-## mv <- makeVector(1:10)
-## cm <- cachemean(mv)
-##
-
-makeVector <- function(x = numeric()) {
     m <- NULL
     set <- function(y) {
         x <<- y
         m <<- NULL
     }
     get <- function() x
-    setmean <- function(mean) m <<- mean
-    getmean <- function() m
+    setinverse <- function(solve) m <<- solve
+    getinverse <- function() m
     list(set = set, get = get,
-         setmean = setmean,
-         getmean = getmean)
+         setinverse = setinverse,
+         getinverse = getinverse)
 }
 
-#-----#
-
 ##
-## Description: Calculate Mean Of Cache Mean Vector.
+## --------------------------------------------------------------------------
+## Description: Function To Compute The Inverse Of The Special
+##              "Matrix" Returned By makeCacheMatrix (above).
+##
+## Example Use: squareMatrix   <- matrix(1:4, 2)
+##              cacheMatrix    <- makeCacheMatrix(squareMatrix)
+##              inverseMatrix  <- makeCacheMatrix(cacheMatrix)
+## --------------------------------------------------------------------------
 ##
 
-##
-## mv <- makeVector(1:10)
-## cm <- cachemean(mv)
-##
-
-
-cachemean <- function(x, ...) {
-    m <- x$getmean()
+cacheSolve <- function(x, ...) {
+    m <- x$getinverse()
     if(!is.null(m)) {
         message("getting cached data")
         return(m)
     }
     data <- x$get()
-    m <- mean(data, ...)
-    x$setmean(m)
+    m <- solve(data, ...)
+    x$setinverse(m)
     m
 }
